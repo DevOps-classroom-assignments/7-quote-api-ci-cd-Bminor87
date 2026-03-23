@@ -26,9 +26,6 @@ jobs:
         - name: Run tests
           run: npm test
 
-        - name: Build
-          run: npm run build
-
         # Deploy to Render.com
         - name: Deploy
           env:
