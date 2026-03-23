@@ -29,11 +29,11 @@ jobs:
         # Deploy to Render.com
         - name: Deploy
           env:
-            deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK }}
+            RENDER_DEPLOY_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK }}
           run: |
             if [ -z "$RENDER_DEPLOY_HOOK" ]; then
-                echo "RENDER_DEPLOY_HOOK secret is not set."
-                exit 1
+              echo "RENDER_DEPLOY_HOOK secret is not set."
+              exit 1
             fi
 
-            curl "$deploy_url" 
+            curl "$RENDER_DEPLOY_HOOK"
