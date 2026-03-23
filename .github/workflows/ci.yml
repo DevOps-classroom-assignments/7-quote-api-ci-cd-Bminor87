@@ -1,0 +1,19 @@
+name: CI for Quote of the Day API
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v5
+ 
+    - name: Install dependencies
+      run: npm install
+    
+    - name: Fix Linting Issues
+      run: npm run lint
+
+    - name: Run tests
+      run: npm test
