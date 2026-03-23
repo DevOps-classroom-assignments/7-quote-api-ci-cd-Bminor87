@@ -8,6 +8,10 @@ app.get('/quote',(req,res)=>{
     res.json({quote: quotes[randomIndex]});
 });
 
+app.get('/quotes',(req,res)=>{
+    res.json({quotes});
+});
+
 const PORT = process.env.PORT || 3000;
 
 if (require.main === module) {
