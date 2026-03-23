@@ -1,0 +1,42 @@
+name: Deploy Quote of the Day API CI/CD
+
+on:
+    release:
+        types: [published]
+
+jobs:
+    Node-ci-pipeline:
+        runs-on: ubuntu-latest
+
+        steps:
+        - name: Clone repository locally
+          uses: actions/checkout@v5
+
+        - name: Set up Node.js
+          uses: actions/setup-node@v4
+          with:
+            node-version: '24'
+    
+        - name: Install dependencies
+          run: npm ci
+        
+        - name: Fix Linting Issues
+          run: npm run lint
+
+        - name: Run tests
+          run: npm test
+
+        - name: Build
+          run: npm run build
+
+        # Deploy to Render.com
+        - name: Deploy
+          env:
+            deploy_url: ${{ secrets.RENDER_DEPLOY_HOOK }}
+          run: |
+            if [ -z "$RENDER_DEPLOY_HOOK" ]; then
+                echo "RENDER_DEPLOY_HOOK secret is not set."
+                exit 1
+            fi
+
+            curl "$deploy_url" 
